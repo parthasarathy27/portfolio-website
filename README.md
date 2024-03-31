@@ -15,7 +15,7 @@ This portfolio is designed to provide visitors with a comprehensive overview of 
 
 ## Live Demo
 
-Explore my portfolio website live at [portfolio-url](your-portfolio-url.com).
+Explore my portfolio website live at [portfolio-url](https://parthasarathy27.github.io/portfolio-website/).
 
 ## Technologies Used
 
@@ -52,8 +52,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-For any inquiries or collaborations, feel free to reach out to me at [your-email@example.com](mailto:your-email@example.com).
-
----
-
-Feel free to customize this template further to better suit your style and preferences!
+For any inquiries or collaborations, feel free to reach out to me at [parthasarathyg2002@gmail.com](mailto:parthasarathyg2002@gmail.com).
