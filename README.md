@@ -31,13 +31,13 @@ To run the website locally on your machine, follow these steps:
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/your-portfolio.git
+git clone https://github.com/parthasarathy27/portfolio-website
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd your-portfolio
+cd portfolio-website 
 ```
 
 3. Open the `index.html` file in your preferred web browser.
