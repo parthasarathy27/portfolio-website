@@ -50,6 +50,6 @@ Contributions are welcome! If you have any suggestions, improvements, or feature
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contact
+## Contact Me
 
 For any inquiries or collaborations, feel free to reach out to me at [parthasarathyg2002@gmail.com](mailto:parthasarathyg2002@gmail.com).
