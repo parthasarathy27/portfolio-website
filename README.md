@@ -52,4 +52,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact Me
 
-For any inquiries or collaborations, feel free to reach out to me at 📬 [Gmail](mailto:parthasarathyg2002@gmail.com).
+For any inquiries or collaborations, feel free to reach out to me at 📬 [Gmail.com](mailto:parthasarathyg2002@gmail.com).
