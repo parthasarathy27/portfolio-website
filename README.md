@@ -17,7 +17,7 @@ This portfolio is designed to provide visitors with a comprehensive overview of 
 
 Explore my portfolio website live at [portfolio-url](https://parthasarathy27.github.io/portfolio-website/).
 
-## Tech stacks
+## Tech Stacks
 
 - HTML: For the structure and content of the website.
 - CSS: For styling and enhancing the visual appeal of the website.
