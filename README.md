@@ -15,7 +15,7 @@ This portfolio is designed to provide visitors with a comprehensive overview of 
 
 ## Live Demo
 
-Explore my portfolio website live at [portfolio-url](https://parthasarathy27.github.io/portfolio-website/).
+Explore my portfolio website live at 💻 [portfolio-url](https://parthasarathy27.github.io/portfolio-website/).
 
 ## Tech Stacks
 
