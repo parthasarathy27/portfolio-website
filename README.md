@@ -28,13 +28,13 @@ Explore my portfolio website live at 💻 [portfolio-url](https://parthasarathy2
 
 To run the website locally on your machine, follow these steps:
 
-1. Clone the repository to your local machine:
+1. Clone the repository to your local machine.
 
 ```bash
 git clone https://github.com/parthasarathy27/portfolio-website
 ```
 
-2. Navigate to the project directory:
+2. Navigate to the project directory.
 
 ```bash
 cd portfolio-website 
