@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume — Parthasarathy G</title>
+    <link rel="shortcut icon" href="./assets/images/ticon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           THEME TOKENS
+        ============================================================ */
+        :root {
+            --yellow:       hsl(45, 100%, 68%);
+            --yellow-hover: hsl(36, 100%, 60%);
+            --yellow-glow:  hsla(45, 100%, 68%, 0.18);
+            --radius:       14px;
+            --transition:   0.28s ease;
+        }
+
+        /* --- DARK --- */
+        [data-theme="dark"] {
+            --bg:           hsl(0,   0%,  7%);
+            --surface:      hsl(240, 2%, 13%);
+            --surface2:     hsl(240, 1%, 18%);
+            --border:       hsl(0,   0%, 24%);
+            --text-heading: hsl(0,   0%, 97%);
+            --text-body:    hsl(0,   0%, 82%);
+            --text-muted:   hsl(0,   0%, 62%);
+            --badge-bg:     hsl(240, 2%, 10%);
+            --bar-bg:       hsla(240,1%, 12%, 0.92);
+            --shadow:       0 8px 40px hsla(0,0%,0%,0.45);
+        }
+
+        /* --- LIGHT (warm amber-cream palette — harmonises with yellow) --- */
+        [data-theme="light"] {
+            --bg:           hsl(44, 30%, 94%);
+            --surface:      hsl(44, 40%, 99%);
+            --surface2:     hsl(44, 28%, 89%);
+            --border:       hsl(40, 25%, 75%);
+            --text-heading: hsl(35, 75%, 22%);   /* deep amber — matches yellow family */
+            --text-body:    hsl(30, 22%, 20%);   /* warm dark brown — very readable */
+            --text-muted:   hsl(30, 16%, 38%);   /* warm mid-brown */
+            --badge-bg:     hsl(44, 35%, 91%);
+            --bar-bg:       hsla(44, 40%, 99%, 0.94);
+            --shadow:       0 8px 40px hsla(35, 40%, 10%, 0.10);
+        }
+
+        /* ============================================================
+           RESET
+        ============================================================ */
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        a  { text-decoration: none; }
+        li { list-style: none; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text-body);
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
+        }
+
+        /* ============================================================
+           MOUSE GLOW  (hidden on mobile / touch)
+        ============================================================ */
+        #mouse-glow {
+            pointer-events: none;
+            position: fixed;
+            width: 460px;
+            height: 460px;
+            border-radius: 50%;
+            background: radial-gradient(circle, hsla(45,100%,68%,0.13) 0%, transparent 68%);
+            transform: translate(-50%, -50%);
+            transition: left 0.06s linear, top 0.06s linear;
+            z-index: 0;
+            opacity: 1;
+        }
+        @media (hover: none) { #mouse-glow { display: none; } }
+
+        /* ============================================================
+           ACTION BAR
+        ============================================================ */
+        .action-bar {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: var(--bar-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 16px hsla(45,100%,68%,0.07);
+        }
+
+        .action-container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 13px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 7px 14px;
+            border-radius: 10px;
+            transition: all var(--transition);
+        }
+        .back-link:hover {
+            color: var(--yellow);
+            border-color: var(--yellow);
+            box-shadow: 0 0 12px var(--yellow-glow);
+        }
+
+        .bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Theme toggle */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            color: var(--text-muted);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            flex-shrink: 0;
+        }
+        .theme-btn:hover {
+            border-color: var(--yellow);
+            color: var(--yellow);
+            box-shadow: 0 0 14px var(--yellow-glow);
+        }
+
+        /* Download button */
+        .dl-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            font-size: 13.5px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            border-radius: 10px;
+            border: 1.5px solid var(--yellow);
+            background: var(--yellow);
+            color: hsl(30, 60%, 14%);
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .dl-btn:hover {
+            background: var(--yellow-hover);
+            border-color: var(--yellow-hover);
+            box-shadow: 0 0 22px hsla(45,100%,68%,0.45);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           RESUME WRAPPER + CARD
+        ============================================================ */
+        .resume-wrapper {
+            max-width: 980px;
+            margin: 36px auto 64px;
+            padding: 0 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .resume {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 52px 56px;
+            box-shadow: var(--shadow);
+            transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+        }
+
+        /* ============================================================
+           RESUME HEADER
+        ============================================================ */
+        .resume-header {
+            text-align: center;
+            padding-bottom: 28px;
+            margin-bottom: 34px;
+            border-bottom: 1.5px solid var(--border);
+            position: relative;
+        }
+        .resume-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 72px;
+            height: 3px;
+            background: linear-gradient(to right, var(--yellow), var(--yellow-hover));
+            border-radius: 3px;
+        }
+
+        .resume-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, var(--yellow), var(--yellow-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+
+        .resume-subtitle {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 18px;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 18px;
+            font-size: 13px;
+        }
+        .contact-row span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-muted);
+        }
+        .contact-row i { color: var(--yellow); }
+        .contact-row a { color: var(--text-body); font-weight: 500; transition: color var(--transition); }
+        .contact-row a:hover { color: var(--yellow); }
+        .sep { opacity: 0.3; }
+
+        /* ============================================================
+           SECTION STRUCTURE
+        ============================================================ */
+        .resume-section { margin-bottom: 32px; }
+
+        .resume-section h2 {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--yellow);
+            padding-bottom: 9px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        [data-theme="light"] .resume-section h2 { color: hsl(36, 90%, 38%); }
+
+        .resume-section h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 15px;
+            background: linear-gradient(to bottom, var(--yellow), var(--yellow-hover));
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .section-content { padding-left: 14px; }
+
+        .section-content > p {
+            font-size: 15px;
+            line-height: 1.85;
+            color: var(--text-body);
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           SKILLS TABLE
+        ============================================================ */
+        .skills-table { width: 100%; border-collapse: collapse; }
+        .skills-table td {
+            padding: 8px 0;
+            vertical-align: top;
+            font-size: 14.5px;
+            color: var(--text-body);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .skill-label {
+            font-weight: 700;
+            color: var(--text-heading);
+            width: 30%;
+            padding-right: 14px;
+            white-space: nowrap;
+        }
+
+        /* ============================================================
+           CARDS  (experience / project / education)
+        ============================================================ */
+        .exp-item, .project-item, .edu-item {
+            margin-bottom: 18px;
+            padding: 18px 20px;
+            background: var(--surface2);
+            border-radius: var(--radius);
+            border-left: 3px solid var(--yellow);
+            transition: box-shadow var(--transition), transform var(--transition);
+        }
+        [data-theme="light"] .exp-item,
+        [data-theme="light"] .project-item,
+        [data-theme="light"] .edu-item {
+            border-left-color: hsl(36, 90%, 38%);
+        }
+        .exp-item:hover, .project-item:hover, .edu-item:hover {
+            box-shadow: 0 0 22px var(--yellow-glow);
+            transform: translateX(4px);
+        }
+
+        .exp-header, .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .exp-header h3, .project-item > h3, .edu-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 2px;
+        }
+
+        .exp-company, .edu-field {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--yellow-hover);
+            margin-bottom: 10px;
+        }
+        [data-theme="light"] .exp-company,
+        [data-theme="light"] .edu-field {
+            color: hsl(35, 85%, 30%);
+        }
+
+        .exp-date {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--badge-bg);
+            border: 1px solid var(--border);
+            padding: 3px 11px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Card body text */
+        .card-text {
+            font-size: 14.5px;
+            color: var(--text-body);
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* ============================================================
+           LISTS
+        ============================================================ */
+        ul.resume-list {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+        ul.resume-list li {
+            list-style: disc;
+            font-size: 14.5px;
+            color: var(--text-body);
+            line-height: 1.78;
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+
+        ul.ach-list { padding-left: 0; }
+        ul.ach-list li {
+            font-size: 14.5px;
+            color: var(--text-body);
+            line-height: 1.78;
+            margin-bottom: 9px;
+            padding-left: 24px;
+            position: relative;
+            font-weight: 400;
+        }
+        ul.ach-list li::before {
+            content: '★';
+            position: absolute;
+            left: 0;
+            color: var(--yellow);
+            font-size: 11px;
+            top: 5px;
+        }
+        [data-theme="light"] ul.ach-list li::before { color: hsl(36, 90%, 38%); }
+        ul.ach-list li strong { color: var(--text-heading); font-weight: 700; }
+
+        /* ============================================================
+           TECH BADGE
+        ============================================================ */
+        .tech-used {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--text-body);
+            background: var(--badge-bg);
+            border: 1px solid var(--border);
+            padding: 5px 13px;
+            border-radius: 8px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .tech-used strong { color: var(--yellow-hover); font-weight: 700; }
+        [data-theme="light"] .tech-used strong { color: hsl(35, 85%, 28%); }
+
+        /* ============================================================
+           DECLARATION
+        ============================================================ */
+        .declaration-footer {
+            margin-top: 18px;
+            text-align: right;
+        }
+        .declaration-footer p {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-heading);
+        }
+
+        /* ============================================================
+           PRINT
+        ============================================================ */
+        @media print {
+            .action-bar, #mouse-glow { display: none !important; }
+            body        { background: #fff !important; color: #111 !important; }
+            .resume     { box-shadow: none !important; border: none !important; padding: 0 !important; background: #fff !important; }
+            .resume-wrapper { margin: 0 !important; padding: 0 !important; }
+            * { -webkit-text-fill-color: unset !important; }
+        }
+
+        /* ============================================================
+           RESPONSIVE — TABLET
+        ============================================================ */
+        @media (max-width: 768px) {
+            .resume { padding: 36px 28px; }
+            .resume-header h1 { font-size: 28px; letter-spacing: 1.5px; }
+            .resume-subtitle { font-size: 14px; }
+            .action-container { padding: 12px 16px; }
+            .skill-label { width: 36%; font-size: 13.5px; }
+            .skills-table td { font-size: 13.5px; }
+        }
+
+        /* ============================================================
+           RESPONSIVE — MOBILE
+        ============================================================ */
+        @media (max-width: 520px) {
+            .resume { padding: 22px 16px; border-radius: 14px; }
+
+            .resume-header h1 { font-size: 22px; letter-spacing: 1px; }
+            .resume-subtitle  { font-size: 13px; }
+            .contact-row      { font-size: 12px; gap: 6px 12px; }
+            .sep              { display: none; }
+
+            .resume-section h2 { font-size: 11px; letter-spacing: 2px; }
+
+            /* Skills: stack vertically */
+            .skills-table,
+            .skills-table tbody,
+            .skills-table tr,
+            .skills-table td { display: block; width: 100%; }
+            .skill-label {
+                width: 100%;
+                padding-bottom: 2px;
+                padding-right: 0;
+                white-space: normal;
+            }
+            .skills-table td:last-child { padding-left: 10px; margin-bottom: 8px; }
+
+            /* Cards */
+            .exp-header, .edu-header { flex-direction: column; gap: 6px; }
+            .exp-header h3, .project-item > h3, .edu-header h3 { font-size: 14.5px; }
+            .exp-date { align-self: flex-start; }
+            .exp-item, .project-item, .edu-item { padding: 14px; }
+
+            /* Back link: shorter */
+            .back-link span { display: none; }
+            .dl-btn { padding: 8px 13px; font-size: 12.5px; }
+
+            .section-content { padding-left: 6px; }
+            .card-text, ul.resume-list li, ul.ach-list li { font-size: 13.5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mouse Glow -->
+    <div id="mouse-glow"></div>
+
+    <!-- ===== ACTION BAR ===== -->
+    <div class="action-bar">
+        <div class="action-container">
+            <a class="back-link" href="index.html">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Portfolio</span>
+            </a>
+            <div class="bar-right">
+                <button class="theme-btn" id="themeToggle" title="Toggle dark / light mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <a href="./assets/resume.pdf" download="Parthasarathy_G_Resume.pdf" class="dl-btn">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== RESUME ===== -->
+    <div class="resume-wrapper">
+        <div class="resume" id="resume">
+
+            <!-- HEADER -->
+            <header class="resume-header">
+                <h1>Parthasarathy G</h1>
+                <p class="resume-subtitle">Software Developer &nbsp;·&nbsp; Frontend Developer</p>
+                <div class="contact-row">
+                    <span><i class="fas fa-envelope"></i>
+                        <a href="mailto:Parthasarathyg2002@gmail.com">Parthasarathyg2002@gmail.com</a>
+                    </span>
+                    <span class="sep">|</span>
+                    <span><i class="fas fa-phone"></i> +91-7558146852</span>
+                    <span class="sep">|</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Madurai, TN</span>
+                    <span class="sep">|</span>
+                    <span><i class="fab fa-linkedin"></i>
+                        <a href="https://linkedin.com/in/parthasarathy-g" target="_blank">linkedin.com/in/parthasarathy-g</a>
+                    </span>
+                    <span class="sep">|</span>
+                    <span><i class="fas fa-globe"></i>
+                        <a href="https://parthasarathy27.github.io/portfolio-website/" target="_blank">Portfolio</a>
+                    </span>
+                </div>
+            </header>
+
+            <!-- CAREER OBJECTIVE -->
+            <section class="resume-section">
+                <h2>Career Objective</h2>
+                <div class="section-content">
+                    <p>
+                        Frontend Developer currently working at BS Teknology, with hands-on experience in developing
+                        and designing responsive websites, e-commerce platforms, and matrimonial software solutions.
+                        Passionate about creating user-friendly and visually appealing web applications. Eager to leverage
+                        my technical skills, continuously learn new technologies, and contribute effectively to a dynamic
+                        organization that values innovation, teamwork, and professional growth.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SKILLS -->
+            <section class="resume-section">
+                <h2>Skills</h2>
+                <div class="section-content">
+                    <table class="skills-table">
+                        <tr>
+                            <td class="skill-label">Languages</td>
+                            <td>Java, Python, JavaScript, HTML5, CSS3, SQL, Bash</td>
+                        </tr>
+                        <tr>
+                            <td class="skill-label">Frameworks &amp; Tech</td>
+                            <td>Nodejs, Blockchain, API, DevOps, Frontend Development</td>
+                        </tr>
+                        <tr>
+                            <td class="skill-label">Databases</td>
+                            <td>MySQL, MongoDB</td>
+                        </tr>
+                        <tr>
+                            <td class="skill-label">Cloud &amp; Platforms</td>
+                            <td>GCP Platform, GitHub, Kubernetes</td>
+                        </tr>
+                        <tr>
+                            <td class="skill-label">Servers &amp; OS</td>
+                            <td>Linux, SSH, SSL</td>
+                        </tr>
+                        <tr>
+                            <td class="skill-label">Tools</td>
+                            <td>Visual Studio, Intellij Idea, Canva, Putty, FTP, WinSCP</td>
+                        </tr>
+                        <tr>
+                            <td class="skill-label">Soft Skills</td>
+                            <td>Critical Thinking, Problem Solving, Leadership, Creativity, Active Listening, Designing</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- CERTIFICATES -->
+            <section class="resume-section">
+                <h2>Certificates</h2>
+                <div class="section-content">
+                    <ul class="ach-list">
+                        <li>Architecting with Google Compute Engine</li>
+                        <li>AWS Certified Cloud Practitioner Essential</li>
+                        <li>Cybersecurity Analyst Job Simulation Certified</li>
+                        <li>Master data management to beginners Certification</li>
+                        <li>Introduction to Cybersecurity In CISCO</li>
+                        <li>Webex Insider Advocacy</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- EXPERIENCE -->
+            <section class="resume-section">
+                <h2>Experience</h2>
+                <div class="section-content">
+                    <div class="exp-item">
+                        <div class="exp-header">
+                            <div>
+                                <h3>FrontEnd Developer</h3>
+                                <p class="exp-company">BS Teknology</p>
+                            </div>
+                            <span class="exp-date">02/2025 – Present</span>
+                        </div>
+                        <p class="card-text">
+                            Converted complex design mockups into fully functional, responsive websites using HTML, CSS, JavaScript, and modern frontend technologies. 
+                            Successfully led the delivery of 25+ websites, 4+ e-commerce platforms, and 2+ specialized matrimonial systems at BS Teknology. 
+                            Handled end-to-end client implementations, including secure deployments and server management using <strong>SSH, SSL, Putty, FTP, and WinSCP</strong>. 
+                            Provided ongoing post-launch support through meticulous bug fixing, optimization, and system performance monitoring.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS -->
+            <section class="resume-section">
+                <h2>Projects</h2>
+                <div class="section-content">
+
+                    <div class="project-item">
+                        <div class="exp-header">
+                            <div>
+                                <h3>Website Designing</h3>
+                                <p class="exp-company">End-to-End Web Design and Backend Integration</p>
+                            </div>
+                            <span class="exp-date">02/2025 – Present</span>
+                        </div>
+                        <ul class="resume-list">
+                            <li>Designed and developed responsive websites by converting design images into functional user interfaces.</li>
+                            <li>Successfully delivered 25+ websites, 4+ e-commerce platforms, and 2+ matrimonial systems with backend integration.</li>
+                            <li>Collaborated with clients on implementation, deployment, and provided ongoing support including bug fixes and issue resolution.</li>
+                        </ul>
+                        <span class="tech-used"><strong>Tech-Stack:</strong> Html, Css, Js, Jquery, Canva and Gsap Basic</span>
+                    </div>
+
+                    <div class="project-item">
+                        <h3>Reward System for Students using NFT in College</h3>
+                        <p class="exp-company">Hackathon Project</p>
+                        <ul class="resume-list">
+                            <li>Uses blockchain and NFTs to create unique, tamper-proof digital rewards for student academic achievements.</li>
+                            <li>Ensures transparency and authenticity by securely storing achievements in students' digital wallets.</li>
+                        </ul>
+                        <span class="tech-used"><strong>Tech-Stack:</strong> Blockchain, Solidity for smart contracts, React-JS, Node-JS.</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- EDUCATION -->
+            <section class="resume-section">
+                <h2>Education</h2>
+                <div class="section-content">
+
+                    <div class="edu-item">
+                        <div class="edu-header">
+                            <div>
+                                <h3>B.Tech Computer Science &amp; Business Systems</h3>
+                                <p class="edu-field">PSNA College of Engineering &amp; Technology, Dindugul</p>
+                            </div>
+                            <span class="exp-date">2024 &nbsp;|&nbsp; CGPA: 8.52</span>
+                        </div>
+                    </div>
+
+                    <div class="edu-item">
+                        <div class="edu-header">
+                            <div>
+                                <h3>HSC (Computer Science)</h3>
+                                <p class="edu-field">Sethupathi Hr. Sec. School, Madurai</p>
+                            </div>
+                            <span class="exp-date">2020 &nbsp;|&nbsp; 68%</span>
+                        </div>
+                    </div>
+
+                    <div class="edu-item">
+                        <div class="edu-header">
+                            <div>
+                                <h3>SSLC</h3>
+                                <p class="edu-field">TVS Sundharam Hr. Sec. School, Madurai</p>
+                            </div>
+                            <span class="exp-date">2018 &nbsp;|&nbsp; 68%</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ACHIEVEMENTS -->
+            <section class="resume-section">
+                <h2>Achievement</h2>
+                <div class="section-content">
+                    <ul class="ach-list">
+                        <li><strong>2024 —</strong> PLI Blockathon finalist (Rewarded with 2000 XDC currency, worth 62 US dollars.)</li>
+                        <li><strong>2020 —</strong> Google Cloud Ready Facilitator program — achieved ultimate milestone challenge.</li>
+                        <li><strong>2018 —</strong> Winning the first prize in the Startup Cell Innovation Club.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- DECLARATION -->
+            <section class="resume-section">
+                <h2>Declaration</h2>
+                <div class="section-content">
+                    <p>I hereby declare that the above details are true and best of my knowledge.</p>
+                    <div class="declaration-footer">
+                        <p>Parthasarathy G</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        /* ===== MOUSE GLOW ===== */
+        const glow = document.getElementById('mouse-glow');
+        document.addEventListener('mousemove', e => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top  = e.clientY + 'px';
+        });
+
+        /* ===== DARK / LIGHT TOGGLE ===== */
+        const html      = document.documentElement;
+        const themeBtn  = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        const saved = localStorage.getItem('resume-theme') || 'dark';
+        setTheme(saved);
+
+        themeBtn.addEventListener('click', () => {
+            const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            setTheme(next);
+            localStorage.setItem('resume-theme', next);
+        });
+
+        function setTheme(t) {
+            html.setAttribute('data-theme', t);
+            themeIcon.className = t === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+    </script>
+
+</body>
+</html>
